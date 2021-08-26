@@ -50,7 +50,6 @@ export default () => {
 
   useEffect(() => {
     DashboardService.getAllStats().then((response) => {
-      console.log(response.data);
       setUsers(response.data.users);
       setEvents(response.data.events);
       setTickets(response.data.tickets);
