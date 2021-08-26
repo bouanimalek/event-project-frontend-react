@@ -20,7 +20,6 @@ export default (props) => {
   useEffect(() => {
     HomeService.getAllEvents()
       .then((response) => {
-        console.log(response.data);
         setEvents(response.data);
       })
       .catch((error) => {

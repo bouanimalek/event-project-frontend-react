@@ -20,7 +20,6 @@ export default (props) => {
   useEffect(() => {
     TagService.getAllTags()
       .then((response) => {
-        console.log(response.data);
         setTags(response.data);
       })
       .catch((error) => {
