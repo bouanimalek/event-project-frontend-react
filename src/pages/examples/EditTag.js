@@ -31,48 +31,43 @@ import { ChoosePhotoWidget, ProfileCardWidget } from "../../components/Widgets";
 import { GeneralInfoForm } from "../../components/Forms";
 import TagService from "../../services/tag.services";
 import Profile3 from "../../assets/img/team/profile-picture-3.jpg";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 export default (props) => {
-  const [tag, setTag] = useState({});
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [tag, setTag] = useState(null);
   const [nameRequired, setNameRequired] = useState("");
   const [descriptionRequired, setDescriptionRequired] = useState("");
   const { idTag } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     TagService.getTagById(idTag)
       .then((response) => {
         setTag(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleDescription = (e) => {
-    setDescription(e.target.value);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setTag({ ...tag, [name]: value });
   };
 
   const validate = () => {
     let isValidForm = false;
-    if (!name) {
+    if (!tag.name) {
       setNameRequired("Name is required!");
     } else {
       setNameRequired(null);
     }
-    if (!description) {
+    if (!tag.description) {
       setDescriptionRequired("Description is required!");
     } else {
       setDescriptionRequired(null);
     }
-    if (name && description) {
+    if (tag.name && tag.description) {
       isValidForm = true;
     }
     return isValidForm;
@@ -80,11 +75,9 @@ export default (props) => {
   const handleReset = () => {
     const isValid = validate();
     if (isValid) {
-      tag.name = name;
-      tag.description = description;
-      TagService.modifyTag({ tag }, idTag)
+      TagService.modifyTag(tag, idTag)
         .then((response) => {
-          console.log(response);
+          history.push("/tags")
         })
         .catch((error) => {
           console.log(error);
@@ -109,8 +102,9 @@ export default (props) => {
                         <Form.Control
                           required
                           type="text"
-                          value={tag.name || ""}
-                          onChange={handleName}
+                          value={tag? tag.name : ""}
+                          name="name"
+                          onChange={handleInputChange}
                         />
                         <div className="text-start w-100 invalid-feedback d-block">
                           {nameRequired}
@@ -127,8 +121,9 @@ export default (props) => {
                           required
                           as="textarea"
                           placeholder=""
-                          value={tag.description || ""}
-                          onChange={handleDescription}
+                          value={tag? tag.description : ""}
+                          name="description"
+                          onChange={handleInputChange}
                         />
                         <div className="text-start w-100 invalid-feedback d-block">
                           {descriptionRequired}
