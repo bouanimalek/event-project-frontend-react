@@ -32,6 +32,7 @@ import { GeneralInfoForm } from "../../components/Forms";
 import TagService from "../../services/tag.services";
 import Profile3 from "../../assets/img/team/profile-picture-3.jpg";
 import { useHistory, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default (props) => {
   const [tag, setTag] = useState(null);
@@ -77,6 +78,7 @@ export default (props) => {
     if (isValid) {
       TagService.modifyTag(tag, idTag)
         .then((response) => {
+          toast.success("Tag updated successfully.");
           history.push("/tags")
         })
         .catch((error) => {
