@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCashRegister,
   faChartLine,
-  faCloudUploadAlt,
-  faPlus,
-  faRocket,
-  faTasks,
-  faUserShield,
-  faDesktop,
-  faMobileAlt,
-  faTabletAlt,
   faUsers,
   faFilePdf,
   faListUl,
@@ -18,25 +9,13 @@ import {
 import {
   Col,
   Row,
-  Button,
-  Dropdown,
-  ButtonGroup,
   Image,
 } from "@themesberg/react-bootstrap";
 
 import {
   CounterWidget,
-  CircleChartWidget,
-  BarChartWidget,
-  TeamMembersWidget,
-  ProgressTrackWidget,
-  RankingWidget,
-  SalesValueWidget,
-  SalesValueWidgetPhone,
-  AcquisitionWidget,
+  CircleChartWidget
 } from "../../components/Widgets";
-import { PageVisitsTable } from "../../components/Tables";
-import { trafficShares, totalOrders } from "../../data/charts";
 import DashboardService from "../../services/dashboard.services";
 import imageEvent from "../../assets/img/1585488022941.jpg";
 
